@@ -1,0 +1,32 @@
+# Accueil
+app_home:
+    path: /
+    controller: App\Controller\SpectacleController::index
+
+# mes reservation
+app_mes_reservations:
+    path: /mes-reservations
+    controller: App\Controller\ReservationController::index
+
+# Formulaire de réservation
+app_reservation:
+    path: /spectacle/{id}/reserver
+    controller: App\Controller\ReservationController::new
+
+# Confirmation
+app_reservation_paiement:
+    path: /reservation/{id}/paiement
+    controller: App\Controller\ReservationController::paiement
+
+# Admin
+admin:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index
+
+app_logout:
+    path: /logout
+    methods: [GET]
+
+controllers:
+    resource: ../src/Controller/
+    type: attribute

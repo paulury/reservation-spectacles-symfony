@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="alert alert-success shadow">
+        <h3>Paiement réussi !</h3>
+        <p>Merci pour votre réservation. Voici le récapitulatif :</p>
+        <hr>
+        <ul>
+            <li><strong>Email :</strong> {{ res.user.email }}</li>
+            <li><strong>Spectacle :</strong> {{ res.spectacle.titre }}</li>
+            <li><strong>Nombre de places :</strong> {{ res.quantite }}</li>
+            <li><strong>Prix Total :</strong> {{ res.prixTotal }} €</li>
+        </ul>
+        <a href="{{ path('app_home') }}" class="btn btn-primary">Retour à l'accueil</a>
+    </div>
+</div>
+{% endblock %}

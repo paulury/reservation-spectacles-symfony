@@ -1,0 +1,25 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}Statistiques des Ventes{% endblock %}
+
+{% block main %}
+    <table class="table datagrid">
+        <thead>
+            <tr>
+                <th>Spectacle</th>
+                <th>Places réservées</th>
+                <th>Chiffre d'affaires</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in stats %}
+                <tr>
+                    <td><strong>{{ s.titre }}</strong></td>
+                    <td><span class="badge bg-info text-dark">{{ s.places }} places</span></td>
+                    <td><span class="badge bg-success">{{ s.total }} €</span></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('admin') }}" class="btn btn-secondary mt-3">Retour au Dashboard</a>
+{% endblock %}

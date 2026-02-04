@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Réservation de Spectacles{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="{{ path('app_home') }}">🎭 NOS PETITS SPECTACLE</a>
+        
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                {% if app.user %}
+                    {# Liens pour l'utilisateur connecté #}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ path('app_mes_reservations') }}">📋 Mes Réservations</a>
+                    </li>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" href="{{ path('admin') }}">⚙️ Admin</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-danger btn-sm ms-2" href="{{ path('app_logout') }}">Déconnexion</a>
+                    </li>
+                {% else %}
+                    {# Liens pour l'utilisateur déconnecté #}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary btn-sm ms-2" href="{{ path('app_register') }}">Inscription</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h1 class="mb-4 text-center">Spectacles à l'affiche</h1>
+
+    {# Messages Flash #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="row">
+        {% for s in spectacles %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold">{{ s.titre }}</h5>
+                        <p class="badge bg-success fs-5">{{ s.prix }} €</p>
+                        <p class="text-muted">
+                            Disponibilité : <strong>{{ s.nombrePlace }} places</strong>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-4">
+                        {% if s.nombrePlace > 0 %}
+                            <a href="{{ path('app_reservation', {'id': s.id}) }}" class="btn btn-primary w-100">
+                                Réserver
+                            </a>
+                        {% else %}
+                            <button class="btn btn-secondary w-100" disabled>Complet</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-center">Aucun spectacle trouvé.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

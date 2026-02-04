@@ -1,0 +1,70 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}Analyse de la Rentabilité{% endblock %}
+
+{% block main %}
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white shadow border-0">
+                <div class="card-body">
+                    <h6 class="text-uppercase small">Revenus Totaux</h6>
+                    <h2 class="fw-bold mb-0">{{ totalCA }} €</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white shadow border-0">
+                <div class="card-body">
+                    <h6 class="text-uppercase small">Billets Vendus</h6>
+                    <h2 class="fw-bold mb-0">{{ totalTickets }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-info text-white shadow border-0">
+                <div class="card-body">
+                    <h6 class="text-uppercase small">Réservations</h6>
+                    <h2 class="fw-bold mb-0">{{ countReservations }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-5 shadow-sm border-0">
+        <div class="card-header bg-white border-bottom py-3">
+            <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-list me-2 text-primary"></i>Détail par Spectacle</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nom du Spectacle</th>
+                            <th class="text-center">Places Vendues</th>
+                            <th class="text-center">Chiffre d'Affaires</th>
+                            <th class="text-center">Places Restantes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in statsParSpectacle %}
+                        <tr>
+                            <td class="fw-bold">{{ item.titre }}</td>
+                            <td class="text-center">
+                                <span class="badge bg-secondary">{{ item.tickets }}</span>
+                            </td>
+                            <td class="text-center text-success fw-bold">{{ item.ca }} €</td>
+                            <td class="text-center">
+                                {% if item.stock > 0 %}
+                                    <span class="text-muted">{{ item.stock }}</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Complet</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

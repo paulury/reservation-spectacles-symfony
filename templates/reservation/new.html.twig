@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réserver - {{ spectacle.titre }}{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h4 mb-0">Réserver pour : {{ spectacle.titre }}</h2>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Prix par personne : <strong>{{ spectacle.prix }} €</strong></p>
+                    <p>Places encore disponibles : <span class="badge bg-info">{{ spectacle.nombrePlace }}</span></p>
+                    
+                    <hr>
+
+                    {{ form_start(form) }}
+                        <div class="mb-3">
+                            {{ form_label(form.quantite) }}
+                            {{ form_widget(form.quantite) }}
+                            {{ form_errors(form.quantite) }}
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Confirmer la réservation</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
